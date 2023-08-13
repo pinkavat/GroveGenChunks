@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://kwxd40us5q7e"]
+
+[ext_resource type="Script" path="res://Chunk.gd" id="1_judxf"]
+[ext_resource type="Texture2D" uid="uid://dj3d12ti3y6p0" path="res://texture_13.png" id="2_5wv2r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ow6i"]
+albedo_texture = ExtResource("2_5wv2r")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jvnkg"]
+material = SubResource("StandardMaterial3D_4ow6i")
+
+[node name="Chunk" type="Node3D"]
+script = ExtResource("1_judxf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_jvnkg")

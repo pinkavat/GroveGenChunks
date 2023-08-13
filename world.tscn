@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://bkkpgm6mv3x4n"]
+
+[ext_resource type="Texture2D" uid="uid://dnsmm3d4jfcm6" path="res://texture_08.png" id="1_tyd87"]
+[ext_resource type="Script" path="res://ChunkLoader.gd" id="1_vlfpa"]
+[ext_resource type="PackedScene" uid="uid://kwxd40us5q7e" path="res://chunk.tscn" id="2_rkuqa"]
+[ext_resource type="Script" path="res://Avatar.gd" id="3_bre1u"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_awibu"]
+
+[sub_resource type="Sky" id="Sky_rccrx"]
+sky_material = SubResource("ProceduralSkyMaterial_awibu")
+
+[sub_resource type="Environment" id="Environment_75so6"]
+background_mode = 2
+sky = SubResource("Sky_rccrx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wglfe"]
+albedo_texture = ExtResource("1_tyd87")
+uv1_scale = Vector3(50, 50, 50)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_on5v6"]
+material = SubResource("StandardMaterial3D_wglfe")
+size = Vector2(50, 50)
+
+[node name="World" type="Node3D"]
+
+[node name="ChunkLoader" type="Node" parent="." node_paths=PackedStringArray("target", "chunkset")]
+script = ExtResource("1_vlfpa")
+target = NodePath("../Avatar")
+chunkset = NodePath("../ChunkSet")
+chunk_scene = ExtResource("2_rkuqa")
+
+[node name="ChunkSet" type="Node3D" parent="."]
+
+[node name="Avatar" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.690998, 0)
+script = ExtResource("3_bre1u")
+
+[node name="Camera3D" type="Camera3D" parent="Avatar"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_75so6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.899927, -0.167106, 0.402749, -0.0699306, 0.856384, 0.511582, -0.430397, -0.488551, 0.758997, 0, 0, 0)
+
+[node name="TempFloor" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0648158, 0)
+mesh = SubResource("PlaneMesh_on5v6")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
